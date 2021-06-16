@@ -14,28 +14,25 @@ const Search = (props) => {
     placeholder,
   } = props;
 
-  const [sampleAddress, setSampleAddress] = useState(
-    propertyAddresses[Math.floor(Math.random() * propertyAddresses.length)]
-  );
+  const [sampleAddress, setSampleAddress] = useState("3301-15 N 19TH ST");
 
   const shuffle = useCallback(() => {
     const index = Math.floor(Math.random() * propertyAddresses.length);
-    setSampleAddress(propertyAddresses[index]);
+    setSampleAddress(propertyAddresses[index].propertyAddress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    const intervalID = setInterval(shuffle, 2000);
+    const intervalID = setInterval(shuffle, 5000);
     return () => clearInterval(intervalID);
   }, [shuffle]);
 
   return (
     <div className="SearchFormContainer">
       <Container>
-        <h1>Owner Search Form</h1>
-        <Form inline onSubmit={handleSubmit}>
-          <Row className="SearchFormFormRow">
-            <Col lg={10} noGutters={true}>
+        <Form onSubmit={handleSubmit} className="align-items-center">
+          <Row>
+            <Col sm={10} >
               <Form.Control
                 id="OwnerSearchForm"
                 placeholder={
@@ -48,7 +45,7 @@ const Search = (props) => {
                 We respect your privacy, this search will not be recorded.
               </Form.Text>
             </Col>
-            <Col lg={2}>
+            <Col>
               <Button type="submit" variant="dark" className="SearchFormButton">
                 Search
               </Button>

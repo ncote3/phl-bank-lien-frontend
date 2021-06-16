@@ -4,10 +4,11 @@ import axios from "axios";
 
 import fuzzyMatchProperties from "../../utils/FuzzyMatchers";
 
-import Loading from "./Subcomponents/Loading";
-import Error from "./Subcomponents/Error";
+import Loading from "../Common/Loading";
+import Error from "../Common/Error";
 import Search from "./Subcomponents/Search";
 import PropertyList from "./Subcomponents/PropertyList";
+import PropertyDisplay from "../PropertyDisplay/PropertyDisplay";
 
 const useAxios = makeUseAxios({
   axios: axios.create({
@@ -22,6 +23,7 @@ const SearchAndDisplay = () => {
   const [showResults, setShowResults] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [stringMatches, setStringMatches] = useState([]);
+  const [propertyToDisplay, setPropertyToDisplay] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,28 +43,49 @@ const SearchAndDisplay = () => {
   } else if (dataRes.error) {
     return <Error />;
   } else {
-    if (showResults) {
+    if (!showResults) {
       return (
         <Search
           handleSubmit={handleSubmit}
           handleInputChange={handleInputChange}
-          propertyAddresses={Object.keys(dataRes.data)}
+          propertyAddresses={dataRes.data}
           cyclePlaceholder={true}
         />
       );
     } else {
-      return (
-        <>
-          <Search
-            handleSubmit={handleSubmit}
-            handleInputChange={handleInputChange}
-            propertyAddresses={Object.keys(dataRes.data)}
-            cyclePlaceholder={false}
-            placeholder={inputValue}
-          />
-          <PropertyList stringMatches={stringMatches} />
-        </>
-      );
+      if (!propertyToDisplay) {
+        return (
+          <>
+            <Search
+              handleSubmit={handleSubmit}
+              handleInputChange={handleInputChange}
+              propertyAddresses={Object.keys(dataRes.data)}
+              cyclePlaceholder={false}
+              placeholder={inputValue}
+            />
+            <PropertyList
+              stringMatches={stringMatches}
+              setPropertyToDisplay={setPropertyToDisplay}
+            />
+          </>
+        );
+      } else {
+        const propertyToDisplayObject = dataRes.data.filter(
+          (property) => property.propertyAddress === propertyToDisplay
+        );
+
+        if (propertyToDisplayObject) {
+          return (
+            <>
+              <PropertyDisplay
+                propertyToDisplayObject={propertyToDisplayObject}
+              />
+            </>
+          );
+        } else {
+          return <>I cry everytime :_(</>;
+        }
+      }
     }
   }
 };

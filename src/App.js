@@ -6,7 +6,7 @@ import SearchAndDisplay from "./Components/SearchAndDisplay/SearchAndDisplay";
 function App() {
   return (
     <div className="App">
-      <h1>Am I in this?</h1>
+      <h1>Has a Bank Liened on Me?</h1>
       <SearchAndDisplay />
     </div>
   );
