@@ -23,6 +23,8 @@ const Property = (props) => {
     propertyAddress: propertyAddress,
   };
   const [formState, setFormState] = useState(defaultFormState);
+  const [submitted, setSubmitted] = useState(false);
+  const [success, setSuccess] = useState(true);
 
   const containerStyle = {
     border: "1px solid black",
@@ -32,12 +34,14 @@ const Property = (props) => {
   };
 
   const changeHandler = (e) => {
+    setSubmitted(false);
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    await SubmitToSheet(Object.values(formState));
+    setSubmitted(true);
+    setSuccess(await SubmitToSheet(Object.values(formState)));
   };
 
   return (
@@ -54,7 +58,7 @@ const Property = (props) => {
         part on what you share with us (the form below) and information about
         the property.
       </p>
-      <Form onSubmit={submitHandler}>
+      <Form>
         <Row>
           <Col>
             <Form.Group controlId="formName">
@@ -148,9 +152,10 @@ const Property = (props) => {
         </Row>
         <Form>
           <Col>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={submitHandler}>
               Submit
             </Button>
+            <p>{submitted && success ? "Success" : ""}</p>
           </Col>
           <Col />
         </Form>
