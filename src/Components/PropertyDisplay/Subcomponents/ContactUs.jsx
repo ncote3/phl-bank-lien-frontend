@@ -46,7 +46,7 @@ const Property = (props) => {
 
   return (
     <Container style={containerStyle}>
-      <h5>Contact Us!</h5>
+      <h4>Contact Us!</h4>
       <p>
         We may have some mutal interest, consider reaching out to us via this
         form, we only use the information for contact purposes and it will not
@@ -152,7 +152,7 @@ const Property = (props) => {
         </Row>
         <Form>
           <Col>
-            <Button variant="primary" type="submit" onClick={submitHandler}>
+            <Button variant="dark" type="submit" onClick={submitHandler}>
               Submit
             </Button>
             <p>{submitted && success ? "Success" : ""}</p>

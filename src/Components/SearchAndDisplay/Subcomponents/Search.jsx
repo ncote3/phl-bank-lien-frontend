@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useEffect } from "react";
-import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -29,10 +28,10 @@ const Search = (props) => {
 
   return (
     <div className="SearchFormContainer">
-      <Container>
+      <>
         <Form onSubmit={handleSubmit} className="align-items-center">
           <Row>
-            <Col sm={10} >
+            <Col sm={10}>
               <Form.Control
                 id="OwnerSearchForm"
                 placeholder={
@@ -52,7 +51,7 @@ const Search = (props) => {
             </Col>
           </Row>
         </Form>
-      </Container>
+      </>
     </div>
   );
 };

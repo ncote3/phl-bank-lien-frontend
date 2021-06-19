@@ -1,13 +1,12 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import SearchAndDisplay from "./Components/SearchAndDisplay/SearchAndDisplay";
+import Home from "./Components/Home/Home";
 
 function App() {
   return (
     <div className="App">
-      <h1>Has a Bank Liened on Me?</h1>
-      <SearchAndDisplay />
+      <Home />
     </div>
   );
 }

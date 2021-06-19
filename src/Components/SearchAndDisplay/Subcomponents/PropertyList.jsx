@@ -16,45 +16,46 @@ const PropertyList = (props) => {
   };
 
   return (
-    <div className="resultsSection">
-      <Container>
-        <h3>Results</h3>
-        {stringMatches.length > 0 ? (
-          <div>
-            <ListGroup>
-              {stringMatches.map((property) => {
-                return (
-                  <ListGroup.Item className="OwnerSearchFormListGroup">
-                    <Container fluid>
-                      <Row>
-                        <Col lg={6} md={6} xs={12}>
-                          <p>{property.item}</p>
-                        </Col>
-                        <Col lg={2} md={2} xs={12}>
-                          <Badge variant="secondary">
-                            Score: {(100 - property.score * 100).toFixed(2)}
-                          </Badge>
-                        </Col>
-                        <Col lg={2} md={2} xs={12}>
-                          <Button
-                            onClick={handleSelectButton}
-                            value={property.item}
-                            variant="secondary"
-                          >
-                            Select
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Container>
-                  </ListGroup.Item>
-                );
-              })}
-            </ListGroup>
-          </div>
-        ) : (
-          <h5>There were no results.</h5>
-        )}
-      </Container>
+    <div style={{ marginTop: "1vw" }}>
+      <h3>Results</h3>
+      {stringMatches.length > 0 ? (
+        <div>
+          <ListGroup>
+            {stringMatches.map((property) => {
+              return (
+                <ListGroup.Item
+                  className="OwnerSearchFormListGroup"
+                  key={property.item}
+                >
+                  <Container fluid>
+                    <Row>
+                      <Col lg={6} md={6} xs={12}>
+                        <p>{property.item}</p>
+                      </Col>
+                      <Col lg={2} md={2} xs={12}>
+                        <Badge variant="secondary">
+                          Score: {(100 - property.score * 100).toFixed(2)}
+                        </Badge>
+                      </Col>
+                      <Col lg={2} md={2} xs={12}>
+                        <Button
+                          onClick={handleSelectButton}
+                          value={property.item}
+                          variant="secondary"
+                        >
+                          Select
+                        </Button>
+                      </Col>
+                    </Row>
+                  </Container>
+                </ListGroup.Item>
+              );
+            })}
+          </ListGroup>
+        </div>
+      ) : (
+        <h5>There were no results.</h5>
+      )}
     </div>
   );
 };

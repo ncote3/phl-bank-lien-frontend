@@ -164,7 +164,7 @@ const Property = (props) => {
 
   return (
     <Container className="SearchFormContainer" style={{ padding: "2vw" }}>
-      <h1>{propertyAddress}</h1>
+      <h2>{propertyAddress}</h2>
       <Row style={rowStyle}>{renderPropertyInformation()}</Row>
       <Row style={rowStyle}>{renderBankLienInformation()}</Row>
       <Row style={rowStyle}>
