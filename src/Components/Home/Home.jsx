@@ -6,7 +6,7 @@ import PropertyDisplay from "../PropertyDisplay/PropertyDisplay";
 import SearchAndDisplay from "../SearchAndDisplay/SearchAndDisplay";
 
 const jumbotronStyles = {
-  marginTop: "8vw",
+  marginTop: "5vw",
   textAlign: "left",
 };
 
