@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import PropertyDisplay from "../PropertyDisplay/PropertyDisplay";
 
-import SearchAndDisplay from "../SearchAndDisplay/SearchAndDisplay";
+import SearchAndDisplay from "../SearchAndFuzzy/SearchAndFuzzy";
 
 const jumbotronStyles = {
   marginTop: "5vw",
