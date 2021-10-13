@@ -22,6 +22,38 @@ const PropertyList = (props) => {
         <div>
           <ListGroup>
             {stringMatches.map((property) => {
+              const renderButtonCol = () => {
+                return (
+                  <Col lg={2} md={2} xs={12}>
+                    <Button
+                      onClick={handleSelectButton}
+                      value={property.item}
+                      variant="secondary"
+                    >
+                      Select
+                    </Button>
+                  </Col>
+                );
+              };
+
+              const renderFuzzyInfoCol = () => {
+                return (
+                  <Col lg={2} md={2} xs={12}>
+                    <Badge variant="secondary">
+                      Score: {(100 - property.score * 100).toFixed(2)}
+                    </Badge>
+                  </Col>
+                );
+              };
+
+              const renderPropertyCol = () => {
+                return (
+                  <Col lg={6} md={6} xs={12}>
+                    <p>{property.item}</p>
+                  </Col>
+                );
+              };
+
               return (
                 <ListGroup.Item
                   className="OwnerSearchFormListGroup"
@@ -29,23 +61,9 @@ const PropertyList = (props) => {
                 >
                   <Container fluid>
                     <Row>
-                      <Col lg={6} md={6} xs={12}>
-                        <p>{property.item}</p>
-                      </Col>
-                      <Col lg={2} md={2} xs={12}>
-                        <Badge variant="secondary">
-                          Score: {(100 - property.score * 100).toFixed(2)}
-                        </Badge>
-                      </Col>
-                      <Col lg={2} md={2} xs={12}>
-                        <Button
-                          onClick={handleSelectButton}
-                          value={property.item}
-                          variant="secondary"
-                        >
-                          Select
-                        </Button>
-                      </Col>
+                      {renderPropertyCol()}
+                      {renderFuzzyInfoCol()}
+                      {renderButtonCol()}
                     </Row>
                   </Container>
                 </ListGroup.Item>

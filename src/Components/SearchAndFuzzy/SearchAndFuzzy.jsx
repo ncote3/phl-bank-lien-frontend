@@ -18,8 +18,7 @@ const useAxios = makeUseAxios({
 });
 
 const SearchAndDisplay = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const [dataRes, refetch] = useAxios("/api/getAddresses");
+  const [dataRes] = useAxios("/api/getAddresses");
 
   const [showResults, setShowResults] = useState(false);
   const [inputValue, setInputValue] = useState("");

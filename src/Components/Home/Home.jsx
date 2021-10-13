@@ -32,7 +32,7 @@ const Home = () => {
   return (
     <Container>
       <Jumbotron style={jumbotronStyles}>
-        <h1>Has a Bank Liened on Me?</h1>
+        <h1>Is My Vacant Lot Controlled by the US Bank Liens?</h1>
         <SearchAndDisplay
           updatePropertyToDisplay={updatePropertyStateHandler}
         />

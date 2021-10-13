@@ -14,32 +14,40 @@ const useAxios = makeUseAxios({
 
 const PropertyDisplay = (props) => {
   const { propertyToDisplayObject } = props;
+  const [currentProperty] = propertyToDisplayObject;
+  const { accountId } = currentProperty;
 
-  // eslint-disable-next-line no-unused-vars
-  const [dataRes, refetch] = useAxios(
-    `/api/accountIdGetsPropertyInformation/${propertyToDisplayObject[0].accountId}`
+  const [dataRes] = useAxios(
+    `/api/accountIdGetsPropertyInformation/${accountId}`
   );
 
-  if (dataRes.loading) {
+  const { loading, error, data } = dataRes;
+
+  const renderContent = () => {
+    const { totalRecords = 0, records } = data;
+
+    let content = <p>Oopsie Poopsie!</p>;
+
+    if (totalRecords === 1) {
+      const [firstRecordKeyEntry] = Object.keys(records);
+      const currentPropertyObject = records[firstRecordKeyEntry];
+
+      content = <Property propertyObject={currentPropertyObject} />;
+    } else if (totalRecords > 1) {
+      content = <p>More than one record</p>;
+    } else {
+      content = <p>Oopsie Poopsie!</p>;
+    }
+
+    return content;
+  };
+
+  if (loading) {
     return <Loading />;
-  } else if (dataRes.error) {
+  } else if (error) {
     return <Error />;
   } else {
-    if (dataRes.data.totalRecords) {
-      if (dataRes.data.totalRecords === 1) {
-        return (
-          <Property
-            propertyObject={
-              dataRes.data.records[Object.keys(dataRes.data.records)[0]]
-            }
-          />
-        );
-      } else {
-        return <>More than one record</>;
-      }
-    } else {
-      return <>Oopsie Poopsie!</>;
-    }
+    return renderContent();
   }
 };
 
