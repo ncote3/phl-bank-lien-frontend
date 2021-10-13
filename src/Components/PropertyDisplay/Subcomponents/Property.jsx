@@ -4,170 +4,76 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import ContactUs from "./ContactUs";
+import { constructDataSections } from "../helpers";
+import * as styles from "../styles";
 
 const Property = (props) => {
   const { propertyObject } = props;
   const { propertyAddress } = propertyObject;
 
-  const containerStyle = {
-    border: "1px solid black",
-    padding: "1vw",
-    borderRadius: ".5%",
+  const dataSections = constructDataSections(propertyObject);
+
+  const renderBoldType = (text) => {
+    return <span style={styles.boldType}>{text}:</span>;
   };
 
-  const rowStyle = { paddingBottom: "1vw" };
+  const renderDataColumnRow = (title, value) => {
+    return (
+      <p>
+        {renderBoldType(title)} {value}
+      </p>
+    );
+  };
 
-  const renderBankLienInformation = () => {
-    const {
-      calcInt,
-      calcOther,
-      calcPen,
-      calcPrincipal,
-      calcTotal,
-      caseStatus,
-      collAgCalcTotal,
-      collAgCount,
-      collAgMin,
-      colAgMx,
-      collAgPrincipal,
-      countOfYears,
-      currentAssessmentYear,
-      lienBalance,
-      maxPeriod,
-      minPeriod,
-      netTaxValueafterHmstd,
-      payAgreement,
-      returnMail,
-      totalAssessment,
-      totalTaxable,
-    } = propertyObject;
+  const renderDataColumn = (dataColumnObject, key) => {
+    const [title, value] = dataColumnObject;
 
     return (
-      <Container style={containerStyle}>
-        <h5>Bank Lien Information</h5>
-        <Row>
-          <Col>
-            <p>
-              <span style={{ fontWeight: 500 }}>collAgCalcTotal:</span>{" "}
-              {collAgCalcTotal}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>collAgCount:</span>{" "}
-              {collAgCount}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>collAgMin:</span> {collAgMin}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>calcPrincipal:</span>{" "}
-              {calcPrincipal}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>calcTotal:</span> {calcTotal}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>caseStatus:</span> {caseStatus}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>calcInt:</span> {calcInt}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>calcOther:</span> {calcOther}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>calcPen:</span> {calcPen}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>totalTaxable:</span>{" "}
-              {totalTaxable}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>totalAssessment:</span>{" "}
-              {totalAssessment}
-            </p>
-          </Col>
-          <Col>
-            <p>
-              <span style={{ fontWeight: 500 }}>colAgMx:</span> {colAgMx}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>collAgPrincipal:</span>{" "}
-              {collAgPrincipal}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>countOfYears:</span>{" "}
-              {countOfYears}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>currentAssessmentYear:</span>{" "}
-              {currentAssessmentYear}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>lienBalance:</span>{" "}
-              {lienBalance}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>maxPeriod:</span> {maxPeriod}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>minPeriod:</span> {minPeriod}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>netTaxValueafterHmstd:</span>{" "}
-              {netTaxValueafterHmstd}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>payAgreement:</span>{" "}
-              {payAgreement}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>returnMail:</span> {returnMail}
-            </p>
-          </Col>
-        </Row>
+      <Col key={`dataColumn ${key}`}>{renderDataColumnRow(title, value)}</Col>
+    );
+  };
+
+  const renderDataRow = (dataRowKeyValues, key) => {
+    const dataColumns = dataRowKeyValues.map((dataRow, i) => {
+      return renderDataColumn(dataRow, i);
+    });
+
+    return <Row key={`dataRow ${key}`}>{dataColumns}</Row>;
+  };
+
+  const renderDataSection = (title, dataSection) => {
+    const dataRows = dataSection.map((dataColumns, i) => {
+      return renderDataRow(dataColumns, i);
+    });
+
+    return (
+      <Container style={styles.containerStyle}>
+        <h5>{title}</h5>
+        {dataRows}
       </Container>
     );
   };
 
-  const renderPropertyInformation = () => {
-    const { zip5, city, legalName, councilDistrict } = propertyObject;
-    return (
-      <Container style={containerStyle}>
-        <h5>Property Information</h5>
-        <Row>
-          <Col>
-            <p>
-              <span style={{ fontWeight: 500 }}>Property Address:</span>{" "}
-              {propertyAddress}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>City:</span> {city}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>Zip Code:</span> {zip5}
-            </p>
-          </Col>
-          <Col>
-            <p>
-              <span style={{ fontWeight: 500 }}>Owner Legal Name:</span>{" "}
-              {legalName}
-            </p>
-            <p>
-              <span style={{ fontWeight: 500 }}>Council District:</span>{" "}
-              {councilDistrict}
-            </p>
-          </Col>
+  const renderDataSections = (dataSections) => {
+    const titleMap = ["Property Information", "Bank Lien Information"];
+
+    return dataSections.map((dataSection, i) => {
+      return (
+        <Row style={styles.rowStyle}>
+          {renderDataSection(titleMap[i], dataSection)}
         </Row>
-      </Container>
-    );
+      );
+    });
   };
 
   return (
-    <Container className="SearchFormContainer" style={{ padding: "2vw" }}>
+    <Container
+      className="SearchFormContainer"
+      style={styles.searchFormContainer}
+    >
       <h2>{propertyAddress}</h2>
-      <Row style={rowStyle}>{renderPropertyInformation()}</Row>
-      <Row style={rowStyle}>{renderBankLienInformation()}</Row>
-      <Row style={rowStyle}>
+      {renderDataSections(dataSections)}
+      <Row style={styles.rowStyle}>
         <ContactUs propertyObject={propertyObject} />
       </Row>
     </Container>
