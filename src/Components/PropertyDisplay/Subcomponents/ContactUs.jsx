@@ -20,14 +20,19 @@ const ContactUs = (props) => {
     ownerLegalName: legalName,
     zipCode: zip5,
     propertyAddress: propertyAddress,
+    phone: "",
   };
+
   const [formState, setFormState] = useState(defaultFormState);
   const [submitted, setSubmitted] = useState(false);
   const [success, setSuccess] = useState(true);
 
   const changeHandler = (e) => {
+    const { target } = e;
+    const { name, value } = target;
+
     setSubmitted(false);
-    setFormState({ ...formState, [e.target.name]: e.target.value });
+    setFormState({ ...formState, [name]: value });
   };
 
   const contactFormRows = [
@@ -50,9 +55,7 @@ const ContactUs = (props) => {
             onChange={changeHandler}
             name="organization"
           />
-          <Form.Text className="text-muted">
-            No worries if you don't have one!
-          </Form.Text>
+          <Form.Text className="text-muted">Not Required</Form.Text>
         </Form.Group>,
       ],
     ],
@@ -66,9 +69,15 @@ const ContactUs = (props) => {
             onChange={changeHandler}
             name="email"
           />
-          <Form.Text className="text-muted">
-            We won't share this, just so we can follow up.
-          </Form.Text>
+        </Form.Group>,
+        <Form.Group controlId="formEmail">
+          <Form.Label>Phone Number</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="215-123-4567"
+            onChange={changeHandler}
+            name="phone"
+          />
         </Form.Group>,
       ],
       [],
@@ -83,9 +92,7 @@ const ContactUs = (props) => {
             name="propertyShare"
             onChange={changeHandler}
           />
-          <Form.Text className="text-muted">
-            Optional and Confidential.
-          </Form.Text>
+          <Form.Text className="text-muted">Not Required</Form.Text>
         </Form.Group>,
       ],
     ],
@@ -106,7 +113,8 @@ const ContactUs = (props) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setSubmitted(true);
-    setSuccess(await SubmitToSheet(Object.values(formState)));
+
+    setSuccess(SubmitToSheet(Object.values(formState)));
   };
 
   const renderFormHead = (formHead) => {
@@ -146,7 +154,7 @@ const ContactUs = (props) => {
 
   const renderFormButton = () => {
     return (
-      <Form>
+      <>
         <Col>
           <Button variant="dark" type="submit" onClick={submitHandler}>
             Submit
@@ -154,7 +162,7 @@ const ContactUs = (props) => {
           <p>{submitted && success ? "Success" : ""}</p>
         </Col>
         <Col />
-      </Form>
+      </>
     );
   };
 
