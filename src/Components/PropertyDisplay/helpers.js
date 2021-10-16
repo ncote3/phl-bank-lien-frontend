@@ -1,6 +1,10 @@
 export const constructDataSections = (propertyObject) => {
-  const { lienBalance, totalAssessment, propertyAddress, councilDistrict } =
-    propertyObject;
+  const {
+    lienBalance,
+    totalAssessment,
+    propertyAddress,
+    councilDistrict,
+  } = propertyObject;
 
   const bankLienInformationFirstDataColumnKeyValues = [
     ["Owed To The Banks", lienBalance],

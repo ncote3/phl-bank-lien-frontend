@@ -6,11 +6,12 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import SubmitToSheet from "../../../utils/SubmitToSheet";
+import GetDate from "../../../utils/GetDate";
 import * as styles from "../styles";
 
 const ContactUs = (props) => {
   const { propertyObject } = props;
-  const { propertyAddress, zip5, legalName } = propertyObject;
+  const { propertyAddress, zip5, legalName, wasSold } = propertyObject;
 
   const defaultFormState = {
     name: "",
@@ -21,6 +22,7 @@ const ContactUs = (props) => {
     zipCode: zip5,
     propertyAddress: propertyAddress,
     phone: "",
+    wasSold,
   };
 
   const [formState, setFormState] = useState(defaultFormState);
@@ -114,7 +116,14 @@ const ContactUs = (props) => {
     e.preventDefault();
     setSubmitted(true);
 
-    setSuccess(SubmitToSheet(Object.values(formState)));
+    const dataToSubmit = {
+      ...formState,
+      submissionTime: GetDate(),
+    };
+
+    const success = SubmitToSheet(Object.values(dataToSubmit));
+
+    setSuccess(success);
   };
 
   const renderFormHead = (formHead) => {

@@ -2,6 +2,7 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Alert from "react-bootstrap/Alert";
 
 import ContactUs from "./ContactUs";
 import { constructDataSections } from "../helpers";
@@ -66,12 +67,38 @@ const Property = (props) => {
     });
   };
 
+  const renderSoldAlert = () => {
+    const { wasSold } = props;
+
+    let soldJSX = null;
+
+    if (wasSold) {
+      soldJSX = (
+        <Alert variant="danger">
+          <Alert.Heading>This Property Was Sold.</Alert.Heading>
+          <p>
+            It may be too late to save your lot. This property was one of
+            thousands controlled by an out of state bank.
+            <span style={styles.boldType}> It has recently been sold.</span> It
+            may not be too late - if you'd like to learn more about this
+            property, please complete this form. All information will be kept
+            confidential. Please tell us the story of your lot. A representative
+            of the Iglesias Gardens community will be in touch!
+          </p>
+        </Alert>
+      );
+    }
+
+    return soldJSX;
+  };
+
   return (
     <Container
       className="SearchFormContainer"
       style={styles.searchFormContainer}
     >
       <h2>{propertyAddress}</h2>
+      {renderSoldAlert()}
       {renderDataSections(dataSections)}
       <Row style={styles.rowStyle}>
         <ContactUs propertyObject={propertyObject} />

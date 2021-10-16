@@ -18,7 +18,7 @@ const PropertyDisplay = (props) => {
   const { accountId } = currentProperty;
 
   const [dataRes] = useAxios(
-    `/api/accountIdGetsPropertyInformation/${accountId}`
+    `/api/accountIdGetsPropertyInformationCombined/${accountId}`
   );
 
   const { loading, error, data } = dataRes;
@@ -35,8 +35,6 @@ const PropertyDisplay = (props) => {
       content = <Property propertyObject={currentPropertyObject} />;
     } else if (totalRecords > 1) {
       content = <p>More than one record</p>;
-    } else {
-      content = <p>Oopsie Poopsie!</p>;
     }
 
     return content;
