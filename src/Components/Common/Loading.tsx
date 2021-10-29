@@ -9,7 +9,7 @@ const Loading = () => {
         className="SearchFormContainer"
         style={{ padding: "2vw", textAlign: "center" }}
       >
-        <Spinner animation="border" variant="light" size={"lg"}>
+        <Spinner animation="border" variant="light">
           <span className="sr-only">Getting Search Data From Server...</span>
         </Spinner>
         <p>Getting Search Data From Server...</p>

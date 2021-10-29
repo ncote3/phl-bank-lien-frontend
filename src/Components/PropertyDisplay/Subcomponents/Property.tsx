@@ -8,17 +8,17 @@ import ContactUs from "./ContactUs";
 import { constructDataSections } from "../helpers";
 import * as styles from "../styles";
 
-const Property = (props) => {
+const Property = (props: any) => {
   const { propertyObject } = props;
   const { propertyAddress } = propertyObject;
 
   const dataSections = constructDataSections(propertyObject);
 
-  const renderBoldType = (text) => {
+  const renderBoldType = (text: string) => {
     return <span style={styles.boldType}>{text}:</span>;
   };
 
-  const renderDataColumnRow = (title, value) => {
+  const renderDataColumnRow = (title: string, value: string) => {
     return (
       <p>
         {renderBoldType(title)} {value}
@@ -26,7 +26,7 @@ const Property = (props) => {
     );
   };
 
-  const renderDataColumn = (dataColumnObject, key) => {
+  const renderDataColumn = (dataColumnObject: any, key: number) => {
     const [title, value] = dataColumnObject;
 
     return (
@@ -34,16 +34,16 @@ const Property = (props) => {
     );
   };
 
-  const renderDataRow = (dataRowKeyValues, key) => {
-    const dataColumns = dataRowKeyValues.map((dataRow, i) => {
+  const renderDataRow = (dataRowKeyValues: any, key: number) => {
+    const dataColumns = dataRowKeyValues.map((dataRow: any, i: number) => {
       return renderDataColumn(dataRow, i);
     });
 
     return <Row key={`dataRow ${key}`}>{dataColumns}</Row>;
   };
 
-  const renderDataSection = (title, dataSection) => {
-    const dataRows = dataSection.map((dataColumns, i) => {
+  const renderDataSection = (title: string, dataSection: any) => {
+    const dataRows = dataSection.map((dataColumns: any, i: number) => {
       return renderDataRow(dataColumns, i);
     });
 
@@ -55,10 +55,10 @@ const Property = (props) => {
     );
   };
 
-  const renderDataSections = (dataSections) => {
+  const renderDataSections = (dataSections: any) => {
     const titleMap = ["Property Information", "Bank Lien Information"];
 
-    return dataSections.map((dataSection, i) => {
+    return dataSections.map((dataSection: any, i: number) => {
       return (
         <Row style={styles.rowStyle}>
           {renderDataSection(titleMap[i], dataSection)}

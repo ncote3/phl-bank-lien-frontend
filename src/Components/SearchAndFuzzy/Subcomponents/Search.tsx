@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const Search = (props) => {
+const Search = (props: any): JSX.Element => {
   const {
     handleSubmit,
     handleInputChange,

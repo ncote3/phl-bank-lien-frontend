@@ -1,6 +1,10 @@
 import Fuse from "fuse.js";
 
-export default function fuzzyMatchProperties(term, data, result_length) {
+export default function fuzzyMatchProperties(
+  term: string,
+  data: any,
+  result_length: number
+): any {
   const options = {
     includeScore: true,
   };

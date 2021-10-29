@@ -9,7 +9,7 @@ import SubmitToSheet from "../../../utils/SubmitToSheet";
 import GetDate from "../../../utils/GetDate";
 import * as styles from "../styles";
 
-const ContactUs = (props) => {
+const ContactUs = (props: any) => {
   const { propertyObject } = props;
   const { propertyAddress, zip5, legalName, wasSold } = propertyObject;
 
@@ -29,7 +29,7 @@ const ContactUs = (props) => {
   const [submitted, setSubmitted] = useState(false);
   const [success, setSuccess] = useState(true);
 
-  const changeHandler = (e) => {
+  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { target } = e;
     const { name, value } = target;
 
@@ -112,7 +112,7 @@ const ContactUs = (props) => {
     formFields: contactFormRows,
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     setSubmitted(true);
 
@@ -121,16 +121,18 @@ const ContactUs = (props) => {
       submissionTime: GetDate(),
     };
 
-    const success = SubmitToSheet(Object.values(dataToSubmit));
+    const success: Promise<boolean> = SubmitToSheet(
+      Object.values(dataToSubmit)
+    );
 
-    setSuccess(success);
+    setSuccess(success as unknown as boolean);
   };
 
-  const renderFormHead = (formHead) => {
+  const renderFormHead = (formHead: any) => {
     const { formTitle, formDescriptions } = formHead;
 
     const formDescriptionParagraphs = formDescriptions.map(
-      (formDescription, i) => {
+      (formDescription: string, i: number) => {
         return <p key={`formDescP ${i}`}>{formDescription}</p>;
       }
     );
@@ -145,16 +147,16 @@ const ContactUs = (props) => {
 
   const { formHead, formFields } = formInfo;
 
-  const renderFormColumn = (formColJSXArray) => {
-    const formColumns = formColJSXArray.map((formColJSX, i) => {
+  const renderFormColumn = (formColJSXArray: any) => {
+    const formColumns = formColJSXArray.map((formColJSX: any, i: number) => {
       return <Col key={`formCol${i}`}>{formColJSX}</Col>;
     });
 
     return formColumns;
   };
 
-  const renderFormRow = (formRowsArray) => {
-    const formRows = formRowsArray.map((formRow, i) => {
+  const renderFormRow = (formRowsArray: any) => {
+    const formRows = formRowsArray.map((formRow: any, i: number) => {
       return <Row key={`formRow ${i}`}>{renderFormColumn(formRow)}</Row>;
     });
 
@@ -175,8 +177,8 @@ const ContactUs = (props) => {
     );
   };
 
-  const renderFormRows = (formRowsArray) => {
-    const formRows = formRowsArray.map((formRow) => {
+  const renderFormRows = (formRowsArray: any) => {
+    const formRows = formRowsArray.map((formRow: any) => {
       return renderFormRow(formRow);
     });
 

@@ -7,10 +7,10 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Badge from "react-bootstrap/Badge";
 
-const PropertyList = (props) => {
+const PropertyList = (props: any): JSX.Element => {
   const { stringMatches, setPropertyToDisplay } = props;
 
-  const handleSelectButton = (e) => {
+  const handleSelectButton = (e: any) => {
     e.preventDefault();
     setPropertyToDisplay(e.target.value);
   };
@@ -21,7 +21,7 @@ const PropertyList = (props) => {
       {stringMatches.length > 0 ? (
         <div>
           <ListGroup>
-            {stringMatches.map((property) => {
+            {stringMatches.map((property: any) => {
               const renderButtonCol = () => {
                 return (
                   <Col lg={2} md={2} xs={12}>

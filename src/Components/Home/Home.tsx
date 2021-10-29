@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, CSSProperties } from "react";
 import { Container } from "react-bootstrap";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import PropertyDisplay from "../PropertyDisplay/PropertyDisplay";
 
 import SearchAndDisplay from "../SearchAndFuzzy/SearchAndFuzzy";
 
-const jumbotronStyles = {
+const jumbotronStyles: CSSProperties = {
   marginTop: "5vw",
   textAlign: "left",
 };
@@ -13,7 +13,7 @@ const jumbotronStyles = {
 const Home = () => {
   const [propertyToDisplay, updatePropertyToDisplay] = useState(null);
 
-  const updatePropertyStateHandler = (propertyData) => {
+  const updatePropertyStateHandler = (propertyData: any) => {
     updatePropertyToDisplay(propertyData);
   };
 
