@@ -1,6 +1,5 @@
 import React, { useState, CSSProperties } from "react";
 import { Container } from "react-bootstrap";
-import Jumbotron from "react-bootstrap/Jumbotron";
 import PropertyDisplay from "../PropertyDisplay/PropertyDisplay";
 
 import SearchAndDisplay from "../SearchAndFuzzy/SearchAndFuzzy";
@@ -8,6 +7,10 @@ import SearchAndDisplay from "../SearchAndFuzzy/SearchAndFuzzy";
 const jumbotronStyles: CSSProperties = {
   marginTop: "5vw",
   textAlign: "left",
+  padding: "2rem 1rem",
+  marginBottom: "2rem",
+  backgroundColor: "#e9ecef",
+  borderRadius: ".3rem",
 };
 
 const Home = () => {
@@ -31,12 +34,12 @@ const Home = () => {
 
   return (
     <Container>
-      <Jumbotron style={jumbotronStyles}>
+      <div style={jumbotronStyles}>
         <h1>Is My Vacant Lot Controlled by the US Bank Liens?</h1>
         <SearchAndDisplay
           updatePropertyToDisplay={updatePropertyStateHandler}
         />
-      </Jumbotron>
+      </div>
       {renderPropertyDisplay()}
     </Container>
   );

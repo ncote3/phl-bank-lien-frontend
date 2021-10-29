@@ -39,7 +39,7 @@ const PropertyList = (props: any): JSX.Element => {
               const renderFuzzyInfoCol = () => {
                 return (
                   <Col lg={2} md={2} xs={12}>
-                    <Badge variant="secondary">
+                    <Badge bg="secondary">
                       Score: {(100 - property.score * 100).toFixed(2)}
                     </Badge>
                   </Col>
