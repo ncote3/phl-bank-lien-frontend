@@ -17,7 +17,7 @@ const useAxios = makeUseAxios({
   }),
 });
 
-const SearchAndDisplay = (props) => {
+const SearchAndDisplay = (props: any) => {
   const [dataRes] = useAxios("/api/getAddresses");
 
   const [showResults, setShowResults] = useState(false);
@@ -26,11 +26,11 @@ const SearchAndDisplay = (props) => {
   const [propertyToDisplay, setPropertyToDisplay] = useState("");
   const [showFuzzyMatches, setShowFuzzyMatches] = useState(false);
 
-  const handlePropertySelection = (propertyToDisplay) => {
+  const handlePropertySelection = (propertyToDisplay: any) => {
     const { updatePropertyToDisplay } = props;
 
     const propertyToDisplayObject = dataRes.data.filter(
-      (property) => property.propertyAddress === propertyToDisplay
+      (property: any) => property.propertyAddress === propertyToDisplay
     );
 
     setPropertyToDisplay(propertyToDisplay);
@@ -38,21 +38,23 @@ const SearchAndDisplay = (props) => {
     updatePropertyToDisplay(propertyToDisplayObject);
   };
 
-  const handleShowFuzzyMatches = (e) => {
+  const handleShowFuzzyMatches = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     setShowFuzzyMatches(!showFuzzyMatches);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const data_keys = dataRes.data.map((property) => property.propertyAddress);
+    const data_keys = dataRes.data.map(
+      (property: any) => property.propertyAddress
+    );
     const matches = fuzzyMatchProperties(inputValue, data_keys, 5);
     setStringMatches(matches);
     setShowResults(true);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setInputValue(e.target.value);
   };
@@ -75,9 +77,9 @@ const SearchAndDisplay = (props) => {
     );
   };
 
-  const renderSearchWithFuzzyMatchesCollapsable = () => {
+  const renderSearchWithFuzzyMatchesCollapsible = () => {
     let showText = "Hide";
-    let fuzzyMatchJSX = (
+    let fuzzyMatchJSX: JSX.Element | null = (
       <PropertyList
         stringMatches={stringMatches}
         setPropertyToDisplay={handlePropertySelection}
@@ -126,11 +128,7 @@ const SearchAndDisplay = (props) => {
       if (!propertyToDisplay) {
         return renderSearchWithFuzzyMatches();
       } else {
-        if (showFuzzyMatches) {
-          return renderSearchWithFuzzyMatchesCollapsable(false);
-        } else {
-          return renderSearchWithFuzzyMatchesCollapsable(true);
-        }
+        return renderSearchWithFuzzyMatchesCollapsible();
       }
     }
   }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SubmitToSheet = async (dataToSubmit) => {
+const SubmitToSheet = async (dataToSubmit: any) => {
   let success = false;
 
   await axios

@@ -1,4 +1,4 @@
-export const constructDataSections = (propertyObject) => {
+export const constructDataSections = (propertyObject: any) => {
   const {
     lienBalance,
     totalAssessment,

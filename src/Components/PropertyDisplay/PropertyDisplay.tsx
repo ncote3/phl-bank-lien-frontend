@@ -12,7 +12,7 @@ const useAxios = makeUseAxios({
   }),
 });
 
-const PropertyDisplay = (props) => {
+const PropertyDisplay = (props: any) => {
   const { propertyToDisplayObject } = props;
   const [currentProperty] = propertyToDisplayObject;
   const { accountId } = currentProperty;
